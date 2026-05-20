@@ -284,9 +284,10 @@
   </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
+
+<script>
   const supabaseUrl = "https://akymswivultpgkwcbmfl.supabase.co";
-  const supabaseKey = "sb_publishable_drfYL4GqhHh8J41BQa0oWA_ghVOeJrA";
+  const supabaseKey = "PUT_YOUR_PUBLISHABLE_KEY";
 
   const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
@@ -295,13 +296,15 @@
       .from('accounts')
       .select('*');
 
-    if (error) {
-      console.log(error);
-      return;
-    }
+    console.log(data, error);
 
     const container = document.querySelector(".accounts");
     container.innerHTML = "";
+
+    if (!data || data.length === 0) {
+      container.innerHTML = "<p>لا توجد حسابات</p>";
+      return;
+    }
 
     data.forEach(acc => {
       container.innerHTML += `
@@ -315,8 +318,6 @@
             <div class="followers">❤️ ${acc.likes}</div>
             <div class="followers">${acc.followers} متابع</div>
             <div class="price">${acc.price} د.ك</div>
-
-            <a class="btn" href="#">عرض التفاصيل</a>
           </div>
         </div>
       `;
