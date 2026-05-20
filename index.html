@@ -286,12 +286,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const { createClient } = supabase;
-
-const supabaseClient = createClient(
-  "https://akymswivultpgkwcbmfl.supabase.co",
-  "sb_publishable_drfYL4GqhHh8J41BQa0oWA_ghVOeJrA"
-);
+  const supabaseUrl = "https://akymswivultpgkwcbmfl.supabase.co";
+  const supabaseKey = "sb_publishable_drfYL4GqhHh8J41BQa0oWA_ghVOeJrA";
 
   const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
@@ -300,10 +296,16 @@ const supabaseClient = createClient(
       .from('accounts')
       .select('*');
 
-    console.log(data, error);
+    console.log("DATA:", data);
+    console.log("ERROR:", error);
 
     const container = document.querySelector(".accounts");
     container.innerHTML = "";
+
+    if (error) {
+      container.innerHTML = "<p>حدث خطأ في الاتصال</p>";
+      return;
+    }
 
     if (!data || data.length === 0) {
       container.innerHTML = "<p>لا توجد حسابات</p>";
@@ -311,26 +313,26 @@ const supabaseClient = createClient(
     }
 
     data.forEach(acc => {
-     container.innerHTML += `
-  <div class="card">
-    <img src="${acc.image}" />
+      container.innerHTML += `
+        <div class="card">
+          <img src="${acc.image}" />
 
-    <div class="card-content">
-      <div class="platform">${acc.platform}</div>
-      <h3>${acc.username}</h3>
+          <div class="card-content">
+            <div class="platform">${acc.platform}</div>
+            <h3>${acc.username}</h3>
 
-      <div class="followers">🌍 ${acc.country}</div>
-      <div class="followers">❤️ ${acc.likes}</div>
-      <div class="followers">${acc.followers} متابع</div>
+            <div class="followers">🌍 ${acc.country}</div>
+            <div class="followers">❤️ ${acc.likes}</div>
+            <div class="followers">${acc.followers} متابع</div>
 
-      <div class="price">${acc.price} د.ك</div>
+            <div class="price">${acc.price} د.ك</div>
 
-      <a class="btn" href="details.html?id=${acc.id}">
-        المزيد
-      </a>
-    </div>
-  </div>
-`;
+            <a class="btn" href="details.html?id=${acc.id}">
+              المزيد
+            </a>
+          </div>
+        </div>
+      `;
     });
   }
 
