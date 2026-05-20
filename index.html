@@ -283,5 +283,48 @@
     }
   </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const supabaseUrl = "https://akymswivultpgkwcbmfl.supabase.co";
+  const supabaseKey = "sb_publishable_drfYL4GqhHh8J41BQa0oWA_ghVOeJrA";
+
+  const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+  async function loadAccounts() {
+    const { data, error } = await supabaseClient
+      .from('accounts')
+      .select('*');
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    const container = document.querySelector(".accounts");
+    container.innerHTML = "";
+
+    data.forEach(acc => {
+      container.innerHTML += `
+        <div class="card">
+          <img src="${acc.image}" />
+
+          <div class="card-content">
+            <div class="platform">${acc.platform}</div>
+            <h3>${acc.username}</h3>
+            <div class="followers">🌍 ${acc.country}</div>
+            <div class="followers">❤️ ${acc.likes}</div>
+            <div class="followers">${acc.followers} متابع</div>
+            <div class="price">${acc.price} د.ك</div>
+
+            <a class="btn" href="#">عرض التفاصيل</a>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  loadAccounts();
+</script>
+
 </body>
 </html>
