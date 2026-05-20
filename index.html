@@ -286,8 +286,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-  const supabaseUrl = "https://akymswivultpgkwcbmfl.supabase.co";
-  const supabaseKey = "sb_publishable_drfYL4GqhHh8J41BQa0oWA_ghVOeJrA";
+const { createClient } = supabase;
+
+const supabaseClient = createClient(
+  "https://akymswivultpgkwcbmfl.supabase.co",
+  "sb_publishable_drfYL4GqhHh8J41BQa0oWA_ghVOeJrA"
+);
 
   const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
