@@ -143,11 +143,11 @@
       transform:translateY(-5px);
     }
 
-.card img{
-  width:100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-}
+    .card img{
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:cover;
+    }
 
     .card-content{
       padding:20px;
@@ -206,18 +206,13 @@
       <a href="#">التصنيفات</a>
       <a href="#">تواصل</a>
 
-      <button class="toggle" onclick="toggleDarkMode()">
-        🌙
-      </button>
+      <button class="toggle" onclick="toggleDarkMode()">🌙</button>
     </div>
   </nav>
 
   <section class="hero">
     <h1>أفضل الحسابات الرقمية في مكان واحد</h1>
-
-    <p>
-      استعرض حسابات تيك توك وإنستغرام وديسكورد والمزيد
-    </p>
+    <p>استعرض حسابات تيك توك وإنستغرام وديسكورد والمزيد</p>
 
     <div class="search-box">
       <input type="text" placeholder="ابحث عن حساب...">
@@ -225,53 +220,7 @@
     </div>
   </section>
 
-  <section class="accounts">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1200&auto=format&fit=crop" alt="">
-
-      <div class="card-content">
-        <div class="platform">TikTok</div>
-
-        <h3>@fashion.daily</h3>
-
-        <div class="followers">
-          120K متابع
-        </div>
-
-        <div class="price">
-          120 د.ك
-        </div>
-
-        <a href="#" class="btn">
-          عرض التفاصيل
-        </a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop" alt="">
-
-      <div class="card-content">
-        <div class="platform">Instagram</div>
-
-        <h3>@cars.world</h3>
-
-        <div class="followers">
-          85K متابع
-        </div>
-
-        <div class="price">
-          90 د.ك
-        </div>
-
-        <a href="#" class="btn">
-          عرض التفاصيل
-        </a>
-      </div>
-    </div>
-
-  </section>
+  <section class="accounts"></section>
 
   <footer>
     © 2026 حساباتك - جميع الحقوق محفوظة
@@ -283,61 +232,61 @@
     }
   </script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-  const supabaseUrl = "https://akymswivultpgkwcbmfl.supabase.co";
-  const supabaseKey = "sb_publishable_drfYL4GqhHh8J41BQa0oWA_ghVOeJrA";
+  <script>
+    const supabaseUrl = "https://akymswivultpgkwcbmfl.supabase.co";
+    const supabaseKey = "sb_publishable_drfYL4GqhHh8J41BQa0oWA_ghVOeJrA";
 
-  const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-  async function loadAccounts() {
-    const { data, error } = await supabaseClient
-      .from('accounts')
-      .select('*');
+    async function loadAccounts() {
+      const { data, error } = await supabaseClient
+        .from('accounts')
+        .select('*');
 
-    console.log("DATA:", data);
-    console.log("ERROR:", error);
+      console.log("DATA:", data);
+      console.log("ERROR:", error);
 
-    const container = document.querySelector(".accounts");
-    container.innerHTML = "";
+      const container = document.querySelector(".accounts");
+      container.innerHTML = "";
 
-    if (error) {
-      container.innerHTML = "<p>حدث خطأ في الاتصال</p>";
-      return;
-    }
+      if (error) {
+        container.innerHTML = "<p>حدث خطأ في الاتصال</p>";
+        return;
+      }
 
-    if (!data || data.length === 0) {
-      container.innerHTML = "<p>لا توجد حسابات</p>";
-      return;
-    }
+      if (!data || data.length === 0) {
+        container.innerHTML = "<p>لا توجد حسابات</p>";
+        return;
+      }
 
-    data.forEach(acc => {
-      container.innerHTML += `
-        <div class="card">
-          <img src="${acc.image}" />
+      data.forEach(acc => {
+        container.innerHTML += `
+          <div class="card">
+            <img src="${acc.image}" />
 
-          <div class="card-content">
-            <div class="platform">${acc.platform}</div>
-            <h3>${acc.username}</h3>
+            <div class="card-content">
+              <div class="platform">${acc.platform}</div>
+              <h3>${acc.username}</h3>
 
-            <div class="followers">🌍 ${acc.country}</div>
-            <div class="followers">❤️ ${acc.likes}</div>
-            <div class="followers">${acc.followers} متابع</div>
+              <div class="followers">🌍 ${acc.country}</div>
+              <div class="followers">❤️ ${acc.likes}</div>
+              <div class="followers">${acc.followers} متابع</div>
 
-            <div class="price">${acc.price} د.ك</div>
+              <div class="price">${acc.price} د.ك</div>
 
-            <a class="btn" href="details.html?id=${acc.id}">
-              المزيد
-            </a>
+              <a class="btn" href="details.html?id=${acc.id}">
+                المزيد
+              </a>
+            </div>
           </div>
-        </div>
-      `;
-    });
-  }
+        `;
+      });
+    }
 
-  loadAccounts();
-</script>
+    loadAccounts();
+  </script>
 
 </body>
 </html>
